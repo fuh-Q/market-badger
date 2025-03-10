@@ -47,7 +47,7 @@ impl EventHandler for Handler {
             }
         };
 
-        let fmt = |l: std::time::Duration| format!("`{:.2}ms`", l.as_secs_f32() / 1000f32);
+        let fmt = |l: std::time::Duration| format!("`{:.2}ms`", l.as_secs_f32() * 1000f32);
         let res = match shard.latency {
             Some(latency) => msg.reply_ping(&ctx.http, fmt(latency)).await,
             None => msg.reply_ping(&ctx.http, "pong").await,
