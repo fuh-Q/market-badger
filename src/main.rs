@@ -1,7 +1,5 @@
 use std::sync::Arc;
 
-use dotenv;
-
 use serenity::all::{Http, MessageUpdateEvent, ShardManager, UserId};
 use serenity::async_trait;
 use serenity::model::channel::Message;
@@ -128,8 +126,6 @@ impl EventHandler for Handler {
 
 #[tokio::main]
 async fn main() {
-    dotenv::dotenv().ok();
-
     let token = include_str!("../token.txt");
     let intents = GatewayIntents::default() | GatewayIntents::MESSAGE_CONTENT;
 
