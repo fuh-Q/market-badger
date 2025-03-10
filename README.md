@@ -7,6 +7,7 @@ A self-hosted Discord bot that aids you in grinding Dank Memer's "Market Manipul
 -   You are grinding the badge on a computer (and NOT on a phone)
 -   You have an alt account to post all of your market offers
     (this makes copying the private offer IDs a lot more convenient)
+-   You are using the bot in a private server with almost nothing in it
 
 #### Installation
 
