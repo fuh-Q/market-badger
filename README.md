@@ -27,7 +27,7 @@ A self-hosted Discord bot that aids you in grinding Dank Memer's "Market Manipul
     ![bot tab](assets/bottab.png)
     ![intents](assets/intents.png)
 
-    After that, head to the OAuth2 tab on the left. This is where you will obtain an invite link for your bot.
+    After that, head to the OAuth2 tab on the left. This is where you will obtain an invite link for your bot
 
     Select the "bot" scope from the list, and choose whatever permissions you want your bot to have. I recommend just fucking and chucking it with full Admin perms, because I made this bot under the assumption that it's being used in a private server with basically nothing in it
 
