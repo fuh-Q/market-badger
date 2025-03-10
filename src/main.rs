@@ -168,6 +168,9 @@ async fn main() {
     {
         let mut data = client.data.write().await;
         data.insert::<ClientShards>(Arc::clone(&client.shard_manager));
+        data.get_mut::<MarketCodeFlow>()
+            .expect("flow iterator not found")
+            .next();
     }
 
     if let Err(e) = client.start().await {
