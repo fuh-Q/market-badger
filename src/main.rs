@@ -39,8 +39,8 @@ fn skipuntil_modal_response() -> CreateInteractionResponse {
         CreateModal::new("skipuntil", "Offer ID to Skip to").components(vec![
             CreateActionRow::InputText(
                 CreateInputText::new(InputTextStyle::Short, "Offer ID", "offerid")
-                    .min_length(6)
-                    .max_length(10)
+                    .min_length(8)
+                    .max_length(8)
                     .required(true),
             ),
         ]),
