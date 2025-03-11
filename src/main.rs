@@ -160,9 +160,9 @@ impl Handler {
             {
                 eprintln!("failed [skip current] response: {e}");
             }
+        } else {
+            eprintln!("unhandled interaction: {}", interaction.data.custom_id);
         }
-
-        panic!("unhandled interaction: {}", interaction.data.custom_id);
     }
 }
 
