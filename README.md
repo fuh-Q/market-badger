@@ -67,8 +67,16 @@ A self-hosted Discord bot that aids you in grinding Dank Memer's "Market Manipul
 #### Usage
 
 The bot has a `!ping` command, which allows you to verify that it's online.
-To start grinding, run `pls market accept` on ANY market offer, and the bot will begin cycling through the offer IDs specified in `codes.txt`. You MUST run all commands using the `pls` prefix.
+To start grinding, run `pls market accept` on your FIRST market offer in the `codes.txt` file, and the bot will begin cycling through the offer IDs specified in `codes.txt`. You MUST run all commands using the `pls` prefix.
+
 ![usage](assets/copy-cmd.png)
+
+The bot will begin your flow on your second market code, assuming that you accepted your first offer to begin your grind
+
+#### Why private offers?
+
+Because it was more ergonomic for me to code it this way, also because _why not_.
+Private offers are both cheaper to post, AND they reduce the risk of having someone else accept your offers
 
 #### Questions?
 
