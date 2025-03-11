@@ -45,7 +45,7 @@ A self-hosted Discord bot that aids you in grinding Dank Memer's "Market Manipul
 
 4. **Configure the bot**
 
-    You will notice two files in the `market-badger` directory:
+    To start, create two files in the `market-badger` directory:
 
     - `token.txt`
     - `codes.txt`
