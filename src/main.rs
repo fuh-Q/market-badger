@@ -317,7 +317,7 @@ async fn main() {
     };
 
     let mut cache_config = serenity::cache::Settings::default();
-    cache_config.max_messages = 100;
+    cache_config.max_messages = 25;
 
     let intents = GatewayIntents::default() | GatewayIntents::MESSAGE_CONTENT;
     let mut client = match Client::builder(token, intents)
