@@ -280,16 +280,27 @@ impl EventHandler for Handler {
 #[tokio::main]
 async fn main() {
     let token = include_str!("../token.txt");
-    let intents = GatewayIntents::default() | GatewayIntents::MESSAGE_CONTENT;
-
     let codes = include_str!("../codes.txt").trim();
     if codes.is_empty() {
         panic!("no market codes were given");
     }
 
     let codes_iter = codes.split_whitespace().filter(|l| l.starts_with("PV"));
-    let all_codes = codes_iter.clone().collect::<HashSet<_>>();
-    println!("Cycling over {} offer codes...", all_codes.len());
+    let (all_codes, code_count) = {
+        let mut set = HashSet::new();
+        let mut cnt = 0;
+        for c in codes_iter.clone() {
+            if !set.insert(c) {
+                eprintln!("WARNING: offer ID `{c}` appears multiple times in codes.txt");
+            }
+
+            cnt += 1
+        }
+
+        (set, cnt)
+    };
+
+    println!("Cycling over {code_count} offer codes...");
 
     let http = Http::new(token);
     let owner = match http.get_current_application_info().await {
@@ -308,6 +319,7 @@ async fn main() {
     let mut cache_config = serenity::cache::Settings::default();
     cache_config.max_messages = 100;
 
+    let intents = GatewayIntents::default() | GatewayIntents::MESSAGE_CONTENT;
     let mut client = match Client::builder(token, intents)
         .event_handler(Handler)
         .cache_settings(cache_config)
