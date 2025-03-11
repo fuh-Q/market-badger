@@ -47,6 +47,14 @@ fn skipuntil_modal_response() -> CreateInteractionResponse {
     )
 }
 
+fn ephemeral_message(content: &str) -> CreateInteractionResponse {
+    CreateInteractionResponse::Message(
+        CreateInteractionResponseMessage::new()
+            .content(content)
+            .ephemeral(true),
+    )
+}
+
 async fn get_next_code(ctx: &Context) -> &str {
     let mut data = ctx.data.write().await;
     let flow = data
@@ -89,10 +97,8 @@ impl Handler {
                 .get::<AllCodes>()
                 .expect("market offers' HashSet not present");
             if !all_codes.contains(user_input.as_str()) {
-                let builder = CreateInteractionResponse::Message(
-                    CreateInteractionResponseMessage::new()
-                        .content("input did not match any offer specified in `codes.txt`"),
-                );
+                let content = "input did not match any offer specified in `codes.txt`";
+                let builder = ephemeral_message(content);
                 if let Err(e) = interaction.create_response(&ctx.http, builder).await {
                     eprintln!("could not send modal response: {e}");
                 };
@@ -149,15 +155,8 @@ impl Handler {
                 eprintln!("failed [skip current] response: {e}");
             }
         } else if interaction.user.id != owner {
-            if let Err(e) = interaction
-                .create_response(
-                    &ctx.http,
-                    CreateInteractionResponse::Message(
-                        CreateInteractionResponseMessage::new().content("not your controls"),
-                    ),
-                )
-                .await
-            {
+            let builder = ephemeral_message("not your controls");
+            if let Err(e) = interaction.create_response(&ctx.http, builder).await {
                 eprintln!("failed [skip current] response: {e}");
             }
         } else {
