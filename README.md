@@ -11,17 +11,17 @@ A self-hosted Discord bot that aids you in grinding Dank Memer's "Market Manipul
 
 #### Installation
 
-1. **You will need a Rust compiler.**
-   You can install the Rust toolchain [here](https://rustup.rs/)
+1.  **You will need a Rust compiler.**
+    You can install the Rust toolchain [here](https://rustup.rs/)
 
-2. **Clone this repo**
+2.  **Clone this repo**
 
     ```sh
     git clone https://github.com/fuh-Q/market-badger
     cd market-badger
     ```
 
-3. **Create a bot application on Discord's Developer Portal**
+3.  **Create a bot application on Discord's Developer Portal**
 
     Go to the [dev portal](https://discord.com/developers) and create an application. Next, you'll wanna go to the "Bot" tab, and scroll down to the bottom. Flick on the switch labeled "Message Content Intent", and make sure you save your changes!
 
@@ -43,18 +43,18 @@ A self-hosted Discord bot that aids you in grinding Dank Memer's "Market Manipul
     ![bot tab](assets/bottab.png)
     ![token](assets/token.png)
 
-4. **Configure the bot**
+4.  **Configure the bot**
 
     To start, create two files in the `market-badger` directory:
 
-    - `token.txt`
-    - `codes.txt`
+    -   `token.txt`
+    -   `codes.txt`
 
-    Firstly, you'll wanna paste your token into the `token.txt` file.
+    Firstly, you'll wanna paste your token into the `token.txt` file
 
     For `codes.txt`, you first need to post ALL of your market offers as **_PRIVATE_** offers, then transcribe the offer IDs into this file, separated by newlines (the bot will only read lines that begin with `PV`, the common prefix for private market offers)
 
-5. **Run the bot**
+5.  **Run the bot**
 
     To run the bot, ensure that your command terminal is in the `market-badger` directory, and simply type
 
@@ -69,9 +69,41 @@ A self-hosted Discord bot that aids you in grinding Dank Memer's "Market Manipul
 The bot has a `!ping` command, which allows you to verify that it's online.
 To start grinding, run `pls market accept` on your FIRST market offer in the `codes.txt` file, and the bot will begin cycling through the offer IDs specified in `codes.txt`. You MUST run all commands using the `pls` prefix.
 
+The bot will begin your flow on your second market code, assuming that you accepted your first offer to begin your grind.
+
+Each flow message is sent with two buttons:
+
+-   "Skip current" will skip the current offer
+-   "Skip until" will skip to a specific offer, and thus enables _restoring your flow position through bot restarts_
+
+#### Tips for grinding
+
+<details>
+<summary>Codeblock copy button</summary>
+
+Discord codeblocks have a copy button, as shown below
+
 ![usage](assets/copy-cmd.png)
 
-The bot will begin your flow on your second market code, assuming that you accepted your first offer to begin your grind
+</details>
+<details>
+<summary>Use your tab key!</summary>
+
+Using your tab key (and shift+tab), you can navigate between interactive elements of the Discord client. This allows you to click the Dank Memer confirmations using only your keyboard, and allows you to keep your mouse cursor focused on the copy button mentioned in the last point
+
+</details>
+<details>
+<summary>100 offers recommended</summary>
+
+Partial market offers have a 5 minute acceptance cooldown. I personally recommend posting **100 private offers** to ensure a smooth grind hitting no cooldowns. Assuming it takes 3 seconds to accept a single offer, it should theoretically take 300 seconds (or 5 minutes) to accept 100 offers
+
+</details>
+
+#### Is this allowed?
+
+Yes, we've been approved by Mel himself
+
+![vouch](assets/vouch.png)
 
 #### Why private offers?
 
