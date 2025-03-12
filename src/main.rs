@@ -1,4 +1,5 @@
 use std::collections::HashSet;
+use std::fs;
 use std::sync::Arc;
 
 use serenity::all::{
@@ -278,8 +279,18 @@ impl EventHandler for Handler {
 
 #[tokio::main]
 async fn main() {
-    let token = include_str!("../token.txt");
-    let codes = include_str!("../codes.txt").trim();
+    let token = {
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/token.txt");
+        fs::read_to_string(path).expect("token.txt not found")
+    };
+
+    let codes = {
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/codes.txt");
+        Box::leak(Box::new(
+            fs::read_to_string(path).expect("codes.txt not found"),
+        ))
+    };
+
     if codes.is_empty() {
         panic!("no market codes were given");
     }
@@ -301,7 +312,7 @@ async fn main() {
 
     println!("Cycling over {code_count} offer codes...");
 
-    let http = Http::new(token);
+    let http = Http::new(&token);
     let owner = match http.get_current_application_info().await {
         Ok(info) => {
             if let Some(team) = info.team {
