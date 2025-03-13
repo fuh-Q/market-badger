@@ -10,7 +10,7 @@ A self-hosted Discord bot that aids you in grinding Dank Memer's "Market Manipul
 -   You are using the bot in a private server with almost nothing in it
 -   You are the ONLY person using this bot!
 
-I didn't bother adding support for multiple users because i'm fucking stupid and lazy
+I didn't bother adding support for multiple users on one instance because i'm fucking stupid and lazy
 
 The bot will only respond to the owner of the bot _account_ (aka you, the reader)
 
