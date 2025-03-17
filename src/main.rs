@@ -87,7 +87,7 @@ impl Handler {
         let user_input = match interaction.data.components[0].components[0].clone() {
             ActionRowComponent::InputText(i) => i
                 .value
-                .expect("always 'Some' when receiving, as specified by the documentation")
+                .expect("always `Some` when receiving, as specified by the documentation")
                 .to_uppercase(),
             _ => unreachable!("`InputText`s are the only components allowed in modals"),
         };
@@ -209,8 +209,10 @@ impl EventHandler for Handler {
     ) {
         let msg = match old {
             Some(msg) => msg,
-            // if it's none, then the message cache is broken
-            None => return,
+            None => {
+                eprintln!("received MESSAGE_UPDATE on an uncached message");
+                return;
+            }
         };
 
         // dank memer sends all messages using embeds
@@ -277,15 +279,42 @@ impl EventHandler for Handler {
     }
 }
 
+#[cfg(feature = "GH_ACTION")]
+macro_rules! get_path_fn {
+    ($config_type:ident, $filename:literal) => {
+        fn $config_type() -> std::path::PathBuf {
+            match std::env::current_exe() {
+                Ok(p) => p
+                    .parent()
+                    .expect("current_exe is a file path, parent *SHOULD* be another directory")
+                    .join($filename),
+                Err(e) => panic!("could not find path to this executable: {e}"),
+            }
+        }
+    };
+}
+
+#[cfg(not(feature = "GH_ACTION"))]
+macro_rules! get_path_fn {
+    ($config_type:ident, $filename:literal) => {
+        const fn $config_type() -> &'static str {
+            concat!(env!("CARGO_MANIFEST_DIR"), "/", $filename)
+        }
+    };
+}
+
+get_path_fn!(get_token, "token.txt");
+get_path_fn!(get_codes, "codes.txt");
+
 #[tokio::main]
 async fn main() {
     let token = {
-        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/token.txt");
+        let path = get_token();
         fs::read_to_string(path).expect("token.txt not found")
     };
 
     let codes = {
-        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/codes.txt");
+        let path = get_codes();
         Box::leak(Box::new(
             fs::read_to_string(path).expect("codes.txt not found"),
         ))
