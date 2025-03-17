@@ -19,5 +19,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          TOOLCHAIN_VERSION: "1.82.0"
+          EXTRA_COMMAND_FLAGS: "--features GH_ACTION"
           RUSTTARGET: ${{ matrix.target }}
           EXTRA_FILES: "codes.txt token.txt"
